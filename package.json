@@ -1,0 +1,19 @@
+{
+  "name": "html-indexer",
+  "version": "1.0.0",
+  "description": "Add index.html in a given directory recursively, effectively creating a static site, useful for sharing files e.g. via nginx etc.",
+  "main": "index.js",
+  "bin": "node index.js",
+  "repository": "https://github.com/bestofsong/html-indexer.git",
+  "author": "wansong",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/ejs": "^2.6.3",
+    "http-server": "^0.11.1",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "ejs": "^2.7.1",
+    "lodash": "^4.17.15"
+  }
+}
