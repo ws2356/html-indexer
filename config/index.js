@@ -48,7 +48,7 @@ class Config {
     })
   }
 
-  isPrune (fullname) {
+  isPrune(fullname) {
     const normname = path.normalize(fullname)
     return !!this.config.ignoreREs.find(item => {
       return item.test(normname)

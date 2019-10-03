@@ -40,7 +40,7 @@ async function main() {
     })
     await fs.writeFileAsync(indexFile, indexContent)
   }
-  async function prune (fullname) {
+  async function prune(fullname) {
     return config.isPrune(fullname)
   }
   await traverse('.', processEntry, { prune });
