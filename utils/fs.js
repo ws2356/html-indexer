@@ -53,14 +53,6 @@ async function traverseImp (dirname, basename, visitor, options) {
     throw error
   }
 
-  await visitor({
-    dirname,
-    basename,
-    children: files,
-    isDirectory: true,
-    fullname
-  })
-
   const prune = options.prune
     ? await options.prune(fullname).catch(() => false)
     : false;
@@ -68,6 +60,14 @@ async function traverseImp (dirname, basename, visitor, options) {
   if (prune) {
     return
   }
+
+  await visitor({
+    dirname,
+    basename,
+    children: files,
+    isDirectory: true,
+    fullname
+  })
 
   for (const file of files) {
     await traverseImp(fullname, file, visitor, options)

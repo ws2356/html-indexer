@@ -1,6 +1,6 @@
 {
   "name": "@wansong/html-indexer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Add index.html in a given directory recursively, effectively creating a static site, useful for sharing files e.g. via nginx etc.",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "ejs": "^2.7.1",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.15"
   },
   "publishConfig": {

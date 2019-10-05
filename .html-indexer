@@ -1,4 +1,8 @@
-{
-  "ignore": ["/node_modules/?|^node_modules/?", "/.git/?|^.git/?"],
-  "noOverwrite": ["/config/index.html|^config/index.html"]
-}
+# 忽略的目录（包含子目录）列表
+ignore:
+- '/node_modules/?|^node_modules/?'
+- '/.git/?|^.git/?'
+
+# 这些文件，如果已存在则不覆盖
+noOverwrite:
+- '/config/index.html|^config/index.html'

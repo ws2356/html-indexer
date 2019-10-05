@@ -2,6 +2,7 @@ const _ = require('lodash')
 const fs = require('fs')
 const path = require('path')
 const util = require('util')
+const yaml = require('js-yaml')
 
 const readFileAsync = util.promisify(fs.readFile)
 
@@ -24,7 +25,7 @@ class Config {
     let configObj
     try {
       const configStr = await readFileAsync(configFile)
-      configObj = JSON.parse(configStr.toString())
+      configObj = yaml.load(configStr.toString())
     } catch (error) {
       if (error.code === 'ENOENT') {
         configObj = _.cloneDeep(DEFAULT_CONFIG)
