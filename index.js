@@ -19,7 +19,25 @@ const { traverse } = require('./utils/fs')
   }
 }
 
+async function help() {
+  const configExampleFile = path.join(__dirname, '.html-indexer')
+  const configExample = (await fs.readFileAsync(configExampleFile)).toString()
+  const helpText =
+    `Put a file named ".html-indexer" (yaml format) in your cwd, then exec command: html-indexer:`
+    + '\n\n' + configExample
+  console.log(helpText)
+}
+
 async function main() {
+  const processArgs = Array.prototype.slice.call(process.argv, 2)
+  if (processArgs.find(it =>
+    it === 'help' ||
+    it === '-help' ||
+    it === '--help')) {
+    await help()
+    return
+  }
+
   await config.loadConfig()
   const templateFile = path.join(__dirname, 'views/index.ejs')
   const ejsStr = (await fs.readFileAsync(templateFile)).toString()
