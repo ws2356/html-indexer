@@ -54,7 +54,10 @@ async function main() {
     }
 
     const indexContent = await render({
-      files: children.filter(item => item !== 'index.html'),
+      files: children.filter((item) => {
+        return item !== 'index.html'
+          && !config.isPrune(path.join(fullname, item));
+      }),
       basename
     })
     await fs.writeFileAsync(indexFile, indexContent)

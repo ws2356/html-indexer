@@ -1,6 +1,6 @@
 {
   "name": "@wansong/html-indexer",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Add index.html in a given directory recursively, effectively creating a static site, useful for sharing files e.g. via nginx etc.",
   "main": "index.js",
   "scripts": {
