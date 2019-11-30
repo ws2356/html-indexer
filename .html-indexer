@@ -1,8 +1,8 @@
 # 忽略的目录（包含子目录）列表
 ignore:
-- '/node_modules/?|^node_modules/?'
-- '/.git/?|^.git/?'
-# 这些文件，如果已存在则不覆盖
-noOverwrite:
-- '/config/index.html|^config/index.html'
-# 上面所有的路径匹配规则： Javascript正则表达式; 不区分大小写
+- '/node_modules(/|$)'
+- '/.git(/|$)'
+# 剪枝的目录（不处理子目录）列表
+prune:
+- '/already_indexed_dir(/|$)'
+# 上面所有的路径匹配规则： Javascript正则表达式; 不区分大小写；算法是re.test(fullpath)

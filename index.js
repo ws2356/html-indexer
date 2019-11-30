@@ -54,18 +54,19 @@ async function main() {
     }
 
     const indexContent = await render({
-      files: children.filter((item) => {
-        return item !== 'index.html'
-          && !config.isPrune(path.join(fullname, item));
-      }),
+      files: children.filter(item => item !== 'index.html'),
       basename
     })
     await fs.writeFileAsync(indexFile, indexContent)
   }
+
   async function prune(fullname) {
     return config.isPrune(fullname)
   }
-  await traverse('.', processEntry, { prune });
+  async function ignore(fullname) {
+    return config.isIgnore(fullname)
+  }
+  await traverse(path.resolve('.'), processEntry, { prune, ignore });
 }
 
 main()

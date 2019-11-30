@@ -9,7 +9,8 @@ const readFileAsync = util.promisify(fs.readFile)
 const DEFAULT_CONFIG_FILE='.html-indexer'
 const DEFAULT_CONFIG = {
   noOverwrite: [],
-  ignore: []
+  ignore: [],
+  prune: []
 }
 
 // format
@@ -38,6 +39,8 @@ class Config {
       .map(reStr => new RegExp(reStr, 'i'))
     configObj.ignoreREs = _.castArray(configObj.ignore || [])
       .map(reStr => new RegExp(reStr, 'i'))
+    configObj.pruneREs = _.castArray(configObj.prune || [])
+      .map(reStr => new RegExp(reStr, 'i'))
 
     this.config = configObj
   }
@@ -50,6 +53,13 @@ class Config {
   }
 
   isPrune(fullname) {
+    const normname = path.normalize(fullname)
+    return !!this.config.pruneREs.find(item => {
+      return item.test(normname)
+    })
+  }
+
+  isIgnore(fullname) {
     const normname = path.normalize(fullname)
     return !!this.config.ignoreREs.find(item => {
       return item.test(normname)

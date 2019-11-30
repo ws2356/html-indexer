@@ -25,6 +25,20 @@ exports.traverse = async function traverse(directory, visitor, options) {
 async function traverseImp (dirname, basename, visitor, options) {
   const fullname = path.normalize(path.join(dirname, basename))
 
+  const ignore = options.ignore
+    ? await options.ignore(fullname).catch(() => false)
+    : false;
+  if (ignore) {
+    return
+  }
+
+  const prune = options.prune
+    ? await options.prune(fullname).catch(() => false)
+    : false;
+  if (prune) {
+    return
+  }
+
   let stat
   try {
     stat = await fs.statAsync(fullname)
@@ -41,9 +55,15 @@ async function traverseImp (dirname, basename, visitor, options) {
     return
   }
 
-  let files
+  const files = [];
   try {
-    files = await fs.readdirAsync(fullname)
+    const allFiles = await fs.readdirAsync(fullname)
+    for (const ff of allFiles) {
+      const childName = path.normalize(path.join(fullname, ff))
+      if (!options.ignore || !await options.ignore(childName)) {
+        files.push(ff);
+      }
+    }
   } catch (error) {
     console.error(`Failed to readdirAsync: ${fullname}`, error)
     const canSkip = error.code === 'ENOENT' || error.code === 'EACCES'
@@ -51,14 +71,6 @@ async function traverseImp (dirname, basename, visitor, options) {
       return
     }
     throw error
-  }
-
-  const prune = options.prune
-    ? await options.prune(fullname).catch(() => false)
-    : false;
-
-  if (prune) {
-    return
   }
 
   await visitor({
