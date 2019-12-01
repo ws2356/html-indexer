@@ -4,21 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title><%= basename %></title>
+    <style>
+      body>ul>li {padding: 1rem;}
+    </style>
   </head>
   <body>
     <ul>
       <% files.forEach(function(file) { %>
         <li>
-          <% if (['.mp4', '.mkv'].some(
-            function(item) { return file.endsWith(item) })) { %>
-            <a href="<%=file%>" target="_blank">
-              <%=file%>
-            </a>
-          <% } else { %>
-            <a href="<%=file%>">
-              <%=file%>
-            </a>
-          <% } %>
+          <a href="<%=file%>">
+            <%=file%>
+          </a>
         </li>
       <% }); %>
     </ul>
